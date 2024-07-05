@@ -1,8 +1,7 @@
-import { PrismaClient, ProdutoPrisma } from "@prisma/client/";
+import { ProdutoPrisma } from "@prisma/client/";
 import { Produto } from "../../entities/Produto";
 import { prismaClient } from "../../prisma";
 import { IProdutoRepository } from "../IProdutoRepository";
-import { ObjectId } from "mongodb";
 
 export class ProdutoRepositoryPrisma implements IProdutoRepository {
     async save (produto: Produto):Promise<void> {

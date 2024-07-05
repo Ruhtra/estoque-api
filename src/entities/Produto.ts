@@ -1,8 +1,8 @@
-import { ObjectId } from "mongodb";
 import { z } from "zod";
+import { Id } from "./types/Id";
 
 export class Produto {
-    public readonly id: ObjectId
+    public readonly id: Id
 
     public name: string
     public amount: number
@@ -29,7 +29,7 @@ export class Produto {
 
     public static create(name: string, price: number): Produto {
         const data = {
-            id: new ObjectId(),
+            id: new Id(),
             name: name,
             amount: 0,
             price: price
