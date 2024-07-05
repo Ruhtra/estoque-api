@@ -14,10 +14,35 @@ datasource db {
 }
 
 model ProdutoPrisma {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String 
-  amout Float
-  price Float
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  amount      Float
+  price       Float
+
+  ItensPrisma ItensPrisma[]
 
   @@map("produtos")
+}
+
+model ItensPrisma {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  quantity Float
+
+
+  produtos ProdutoPrisma @relation(fields: [produtoPrismaId], references: [id])
+  produtoPrismaId String        @db.ObjectId
+
+  RecipePrisma    RecipePrisma? @relation(fields: [RecipePrismaId], references: [id])
+  RecipePrismaId  String?       @db.ObjectId
+
+  @@map("itens")
+}
+
+model RecipePrisma {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  ingredients ItensPrisma[]
+
+  @@map("Recipes")
 }

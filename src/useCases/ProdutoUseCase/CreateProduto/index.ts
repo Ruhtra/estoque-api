@@ -1,4 +1,4 @@
-import { ProdutoRepositoryPrisma } from "../../../respositories/implementations/ProdutoRepositoryPrisma";
+import { ProdutoRepositoryPrisma } from "../../../respositories/implementations/Prisma/ProdutoRepositoryPrisma";
 import { CreateProdutoController } from "./CreateProdutoController";
 import { CreateProdutoUseCase } from "./CreateProdutoUseCase";
 
