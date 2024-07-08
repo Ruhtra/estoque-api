@@ -1,12 +1,35 @@
-import { Item } from "./Item"
-import { Id } from "./types/Id"
+import { Item } from "./Item";
+
+export type RecipeProps = {
+    id: string;
+    name: string
+    ingredients: Item[]
+};
 
 export class Recipe {
-    public readonly id: Id
-    public name: string
-    public ingredients: Item[]
-    
-    private constructor(data: Recipe){
-        Object.assign(this, data)
+    private constructor(private props: RecipeProps) {}
+
+    public static with(props: RecipeProps) {
+        return new Recipe(props);
+    }
+
+    public get id() {
+        return this.props.id;
+    }
+
+    public get name() {
+        return this.props.name;
+    }
+
+    public get ingredients(){
+        return this.props.ingredients;
+    }
+
+    public MakeRecipe(): void {    
+        //ver se a respon sabilidade de verificar o amount dos itens fica de faot aqui    
+        if (this.props.ingredients.some(i => i.product.amount - i.quantity < 0)) {
+            throw new Error("Not enough product amount");
+        }
+        this.props.ingredients.forEach(i => i.product.decreaseAmount(i.quantity))
     }
 }

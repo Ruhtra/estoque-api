@@ -9,7 +9,8 @@ export class MakeRecipeController {
 
     async handle(request: Request, response: Response) {
         try {
-            const id: Id = new Id(request.params.id); 
+            // const id: Id = new Id(request.params.id); 
+            const id: string = request.params.id; 
 
             this.makeRecipeUseCase.execute({ id })
         } catch (error) {

@@ -1,12 +1,26 @@
-import { Produto } from "./Produto"
-import { Id } from "./types/Id"
+import { Product } from "./Product";
+
+export type ItemProps = {
+    id: string;
+    quantity: number
+    product: Product
+};
 
 export class Item {
-    public readonly id: Id
-    public quantity: number
-    public produto: Produto
+    private constructor(private props: ItemProps) {}
 
-    private constructor(data: Item) {
-        Object.assign(this, data)
+    public static with(props: ItemProps) {
+        return new Item(props);
+    }
+
+    public get id() {
+        return this.props.id;
+    }
+    public get quantity() {
+        return this.props.quantity;
+    }
+
+    public get product(){
+        return this.props.product;
     }
 }

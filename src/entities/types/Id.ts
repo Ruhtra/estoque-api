@@ -1,3 +1,3 @@
 import { ObjectId } from "mongodb";
 
-export class Id extends ObjectId {}
+export class Id extends String {}

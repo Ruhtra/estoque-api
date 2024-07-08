@@ -1,39 +1,59 @@
-import { Recipe } from "../../../entities/Recipe";
-import { Id } from "../../../entities/types/Id";
-import { prismaClient } from "../../../prisma";
 import { IRecipeRepository } from "../../IRecipeRepository";
+import { Recipe } from "../../../entities/Recipe";
+import { Item } from "../../../entities/Item";
+import { Product } from "../../../entities/Product";
+import { prismaClient } from "../../../prisma";
 
-export class RecipeRepository implements IRecipeRepository {
-    async findById(id: Id): Promise<Recipe> {
-        const founded = await prismaClient.recipePrisma.findUnique({
+export class RecipeRepositoryPrisma implements IRecipeRepository {
+    // private constructor(private readonly prismaClient: PrismaClient) {}
+    
+    // public static create(prismaClient: PrismaClient) {
+    //     return new ProductRepositoryPrisma(prismaClient);
+    // }
+
+    public async findById(id: string): Promise<Recipe> {
+        const recipes = await prismaClient.recipe.findUnique({
             where: {
-                id: id.toString()
+                id: id
             },
             include: {
                 ingredients: {
                     include: {
-                        produtos: true
+                        product: true
                     }
                 }
             }
         });
 
-        if (!founded) { return null; }
 
-
-        return {
-            id: new Id(founded.id),
-            name: founded.name,
-            ingredients: founded.ingredients.map(item => ({
-                id: new Id(item.id),
-                quantity: item.quantity,
-                produto: {
-                    id: new Id(item.produtos.id),
-                    name: item.produtos.name,
-                    amount: item.produtos.amount,
-                    price: item.produtos.price
-                }
-            }))
-        }
-    };
+        return Recipe.with({
+            id: recipes.id,
+            name: recipes.name,
+            ingredients: recipes.ingredients.map(e => {
+                return Item.with({
+                    id: e.id,
+                    quantity: e.quantity,
+                    product: Product.with(e.product)
+                })
+            })
+        })
+    }
+    // public async update (recipe: Recipe): Promise<void> {
+    //     this.prismaClient.recipe.update({
+    //         where: {
+    //             id: recipe.id
+    //         },
+    //         data: {
+    //             name: recipe.name,
+    //             ingredients: {
+    //                 update: {
+    //                     where: {
+    //                         recipeId: recipe
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     })
+    // }
+    
 }
