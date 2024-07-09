@@ -1,12 +1,20 @@
 import { IProductRepository } from "../../../respositories/IProductRepository";
-import { GetProductRequestDto } from "./GetProductDto";
+import { IUseCase } from "../../IUseCase";
+import { GetProductRequestDto, GetProductResponseDto } from "./GetProductDto";
 
-export class GetProductUseCase {
-    constructor (
+export class GetProductUseCase implements IUseCase<GetProductRequestDto, GetProductResponseDto> {
+    constructor(
         private productRepository: IProductRepository
-    ) {}
+    ) { }
 
-    async execute({ id }: GetProductRequestDto) {
-        return await this.productRepository.get(id)
+    async execute({ id }: GetProductRequestDto): Promise<GetProductResponseDto> {
+        const product = await this.productRepository.get(id)
+
+        return {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            amount: product.amount
+        }
     }
 }

@@ -22,10 +22,6 @@ export class Product {
         });
 
         schema.parse(produto);
-
-        // if (!validationResult.success) {
-        //     throw new Error(`Validation failed: ${validationResult.error.errors}`);
-        // }
     }
 
     public static create(name: string, price: number) {
