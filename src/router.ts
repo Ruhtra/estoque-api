@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { createProdutoController } from "./useCases/ProdutoUseCase/CreateProduto";
+import { createProductController } from "./useCases/ProductUseCase/CreateProduct";
+import { getAllProductController } from "./useCases/ProductUseCase/GetAllProduct";
+import { getProductController } from "./useCases/ProductUseCase/GetProduct";
 
 const router = Router()
 
-router.post("/produto/create", (req, res) => createProdutoController.handle(req, res))
+// product
+router.get("/product/getAll", (req, res) => getAllProductController.handle(req, res))
+router.get("/product/get", (req, res) => getProductController.handle(req, res))
+router.post("/product/create", (req, res) => createProductController.handle(req, res))
 
 
 export { router }

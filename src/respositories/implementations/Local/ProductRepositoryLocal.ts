@@ -15,6 +15,13 @@ export class ProductRepositoryLocal implements IProductRepository {
         this.db.push(product)
     }
     async update (product: Product): Promise<void> {
-        // throw new Error("NOT IMPLEMENTED")
+        const idProduct = this.db.findIndex(e => e.id == product.id)
+        this.db[idProduct] = product
+    }
+    async get(id: string): Promise<Product> {
+        return this.db.find(e => e.id == id)
+    }
+    async getAll(): Promise<Product[]> {
+        return this.db;
     }
 }

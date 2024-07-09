@@ -32,6 +32,20 @@ export class ProductRepositoryPrisma implements IProductRepository {
             }
         })
     }
+    
+    async get(id: string): Promise<Product> {
+        const product = await prismaClient.product.findFirst({
+            where: {
+                id: id
+            }
+        })
+        
+        return Product.with(product);
+    }
+    public async getAll(): Promise<Product[]> {
+        const recipes = await prismaClient.product.findMany()
+        return recipes.map(e => Product.with(e))
+    }
 
     // public async list(): Promise<Product[]> {
     //     const products = await this.prismaClient.product.findMany();

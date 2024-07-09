@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { MakeRecipeUseCase } from "./MakeRecipeUseCase";
-import { Id } from "../../../entities/types/Id";
 
 export class MakeRecipeController {
     constructor(
@@ -9,8 +8,8 @@ export class MakeRecipeController {
 
     async handle(request: Request, response: Response) {
         try {
-            // const id: Id = new Id(request.params.id); 
-            const id: string = request.params.id; 
+            const id: string = request.params.id as string; 
+            if (!id) return response.sendStatus(400)
 
             this.makeRecipeUseCase.execute({ id })
         } catch (error) {

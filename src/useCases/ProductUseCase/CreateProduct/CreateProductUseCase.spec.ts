@@ -1,6 +1,6 @@
 import { ZodError } from "zod"
 import { ProductRepositoryLocal } from "../../../respositories/implementations/Local/ProductRepositoryLocal"
-import { CreateProdutoUseCase } from "./CreateProdutoUseCase"
+import { CreateProductUseCase } from "./CreateProductUseCase"
 import { Product } from "../../../entities/Product";
 
 export function validZodTypeError(error: any, path: string, code: string) {
@@ -14,7 +14,7 @@ export function validZodTypeError(error: any, path: string, code: string) {
 
 describe("CreateProdutoUseCase", () => {
     const produtoLocalRepository = new ProductRepositoryLocal();
-    const createProdutoUseCase = new CreateProdutoUseCase(produtoLocalRepository);
+    const createProdutoUseCase = new CreateProductUseCase(produtoLocalRepository);
 
     describe("success", () => {
         test("Criação de produto", async () => {
