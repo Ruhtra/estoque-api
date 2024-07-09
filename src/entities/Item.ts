@@ -1,7 +1,8 @@
 import { Product } from "./Product";
+import { Id } from "./types/Id";
 
 export type ItemProps = {
-    id: string;
+    id: Id;
     quantity: number
     product: Product
 };

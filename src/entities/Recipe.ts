@@ -1,7 +1,8 @@
 import { Item } from "./Item";
+import { Id } from "./types/Id";
 
 export type RecipeProps = {
-    id: string;
+    id: Id;
     name: string
     ingredients: Item[]
 };

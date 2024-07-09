@@ -1,5 +1,6 @@
 
 import { Product } from "../../../entities/Product";
+import { Id } from "../../../entities/types/Id";
 import { prismaClient } from "../../../prisma";
 import { IProductRepository } from "../../IProductRepository";
 
@@ -13,7 +14,7 @@ export class ProductRepositoryPrisma implements IProductRepository {
     public async save(product: Product): Promise<void> {
         await prismaClient.product.create({
             data: {
-                id: product.id,
+                id: product.id.toString(),
                 name: product.name,
                 price: product.price,
                 amount: product.amount
@@ -23,7 +24,7 @@ export class ProductRepositoryPrisma implements IProductRepository {
     public async update (product: Product): Promise<void> {
         await prismaClient.product.update({
             where: {
-                id: product.id
+                id: product.id.toString()
             },
             data: {
                 amount: product.amount,
@@ -33,10 +34,10 @@ export class ProductRepositoryPrisma implements IProductRepository {
         })
     }
     
-    async get(id: string): Promise<Product> {
+    async get(id: Id): Promise<Product> {
         const product = await prismaClient.product.findFirst({
             where: {
-                id: id
+                id: id.toString()
             }
         })
         

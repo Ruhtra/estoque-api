@@ -1,7 +1,8 @@
 import z from "zod";
+import { Id } from "./types/Id";
 
 export type ProductProps = {
-    id: string;
+    id: Id;
     name: string;
     price: number;
     amount: number;

@@ -1,5 +1,7 @@
+import { Id } from "../../../entities/types/Id"
+
 export interface GetAllProductResponseDto {
-    id: string
+    id: Id
     name: string
     price: number
     amount: number
