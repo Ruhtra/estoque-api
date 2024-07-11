@@ -12,9 +12,7 @@ export class GetProductUseCase implements IUseCase<GetProductRequestDto, GetProd
 
         return {
             id: product.id,
-            name: product.name,
-            price: product.price,
-            amount: product.amount
+            name: product.name
         }
     }
 }

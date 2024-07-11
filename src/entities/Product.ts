@@ -4,8 +4,8 @@ import { Id } from "./types/Id";
 export type ProductProps = {
     id: Id;
     name: string;
-    price: number;
-    amount: number;
+    // price: number;
+    // amount: number;
 };
 
 export class Product {
@@ -18,19 +18,19 @@ export class Product {
         const schema = z.object({
             id: z.string(),
             name: z.string().min(1).max(50),
-            amount: z.number().nonnegative(),
-            price: z.number().positive()
+            // amount: z.number().nonnegative(),
+            // price: z.number().positive()
         });
 
         schema.parse(produto);
     }
 
-    public static create(name: string, price: number) {
+    public static create(name: string) {
         return new Product({
             id: crypto.randomUUID().toString(),
             name,
-            price,
-            amount: 0,
+            // price,
+            // amount: 0,
         });
     }
 
@@ -46,20 +46,20 @@ export class Product {
         return this.props.name;
     }
 
-    public get price(){
-        return this.props.price;
-    }
+    // public get price(){
+    //     return this.props.price;
+    // }
 
-    public get amount(){
-        return this.props.amount;
-    }
+    // public get amount(){
+    //     return this.props.amount;
+    // }
 
-    public increaseAmount(amount: number){
-        this.props.amount += amount;
-    }
+    // public increaseAmount(amount: number){
+    //     this.props.amount += amount;
+    // }
 
-    public decreaseAmount(amount: number){
-        this.props.amount -= amount;
-    }
+    // public decreaseAmount(amount: number){
+    //     this.props.amount -= amount;
+    // }
 
 }

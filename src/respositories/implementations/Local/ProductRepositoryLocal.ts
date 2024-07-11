@@ -5,9 +5,9 @@ export class ProductRepositoryLocal implements IProductRepository {
     private db: Product[] = [
         Product.with({
             id: "6688091774f5609eb87e7e1a",
-            amount: 4,
+            // amount: 4,
             name: "tomate",
-            price: 1.53
+            // price: 1.53
         })
     ]
     

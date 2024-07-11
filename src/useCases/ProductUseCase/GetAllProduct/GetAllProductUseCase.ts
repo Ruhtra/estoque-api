@@ -13,9 +13,7 @@ export class GetAllProductUseCase implements IUseCase<void, GetAllProductRespons
         return products.map(p => {
             return {
                 id: p.id,
-                name: p.name,
-                price: p.price,
-                amount: p.amount
+                name: p.name
             }
         })
     }

@@ -16,8 +16,8 @@ export class ProductRepositoryPrisma implements IProductRepository {
             data: {
                 id: product.id.toString(),
                 name: product.name,
-                price: product.price,
-                amount: product.amount
+                // price: product.price,
+                // amount: product.amount
             },
         });
     }
@@ -27,9 +27,9 @@ export class ProductRepositoryPrisma implements IProductRepository {
                 id: product.id.toString()
             },
             data: {
-                amount: product.amount,
+                // amount: product.amount,
                 name: product.name,
-                price: product.price
+                // price: product.price
             }
         })
     }

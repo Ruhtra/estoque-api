@@ -7,11 +7,11 @@ export type ItemProps = {
     product: Product
 };
 
-export class Item {
+export class Ingredient {
     private constructor(private props: ItemProps) {}
 
     public static with(props: ItemProps) {
-        return new Item(props);
+        return new Ingredient(props);
     }
 
     public get id() {

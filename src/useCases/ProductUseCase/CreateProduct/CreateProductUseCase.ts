@@ -8,8 +8,8 @@ export class CreateProductUseCase implements IUseCase<CreateProductRequestDto, v
         private ProductRepository: IProductRepository
     ) { }
 
-    async execute({name, price}: CreateProductRequestDto): Promise<void> {
-        const productCriado = Product.create(name, price)
+    async execute({name}: CreateProductRequestDto): Promise<void> {
+        const productCriado = Product.create(name)
         await this.ProductRepository.save(productCriado)
     }
 }

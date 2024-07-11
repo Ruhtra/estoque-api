@@ -13,35 +13,65 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+enum OperationHistory {
+  increase
+  decrease
+}
+
+model history {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  amount    Float
+  price     Float
+  operation OperationHistory
+
+  stock   Stock  @relation(fields: [stockId], references: [id])
+  stockId String @db.ObjectId
+
+  @@map("historys")
+}
+
+model Stock {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  amount Float
+
+  product   Product   @relation(fields: [productId], references: [id])
+  productId String    @db.ObjectId
+  history   history[]
+
+  @@map("stocks")
+}
+
 model Product {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   name   String
-  price  Float
-  amount Int
+  // price  Float
+  // amount Int
 
-  Item Item[]
+  Item    Ingredient[]
+  Estoque Stock[]
 
   @@map("products")
 }
 
-model Item {
+model Ingredient {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   quantity Float
 
   product   Product @relation(fields: [productId], references: [id])
   productId String  @db.ObjectId
 
-  Recipe    Recipe? @relation(fields: [recipeId], references: [id])
-  recipeId  String? @db.ObjectId
+  Recipe   Recipe? @relation(fields: [recipeId], references: [id])
+  recipeId String? @db.ObjectId
 
-  @@map("items")
+  @@map("ingredients")
 }
 
 model Recipe {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
 
-  ingredients Item[]
+  ingredients Ingredient[]
 
   @@map("recipes")
 }

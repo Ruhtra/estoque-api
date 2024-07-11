@@ -18,7 +18,7 @@ describe("CreateProdutoUseCase", () => {
 
     describe("success", () => {
         test("Criação de produto", async () => {
-            const produto = Product.create("cebola", 0.3);
+            const produto = Product.create("cebola");
     
             expect(async () => {
                 await createProdutoUseCase.execute(produto);
@@ -30,7 +30,7 @@ describe("CreateProdutoUseCase", () => {
     describe("error", () => {
         test("Nome Null", async () => {
             try {
-                const produto = Product.create(null, 1);
+                const produto = Product.create(null);
                 await createProdutoUseCase.execute(produto)
 
                 fail('Esperava-se que a criação do produto falhasse devido ao preço inválido.');
@@ -40,7 +40,7 @@ describe("CreateProdutoUseCase", () => {
         });
         test("Nome pequeno", async () => {
             try {
-                const produto = Product.create("", 1);
+                const produto = Product.create("");
                 await createProdutoUseCase.execute(produto)
 
                 fail('Esperava-se que a criação do produto falhasse devido ao preço inválido.');
@@ -50,7 +50,7 @@ describe("CreateProdutoUseCase", () => {
         });
         test("Nome grande", async () => {
             try {
-                const produto = Product.create('a'.repeat(51), 1);
+                const produto = Product.create('a'.repeat(51));
                 await createProdutoUseCase.execute(produto)
 
                 fail('Esperava-se que a criação do produto falhasse devido ao preço inválido.');
@@ -60,26 +60,26 @@ describe("CreateProdutoUseCase", () => {
         });
         
 
-        test("Preço null", async () => {
-            try {
-                const produto = Product.create("cebola", null);
-                await createProdutoUseCase.execute(produto)
+        // test("Preço null", async () => {
+        //     try {
+        //         const produto = Product.create("cebola", null);
+        //         await createProdutoUseCase.execute(produto)
 
-                fail('Esperava-se que a criação do produto falhasse devido ao preço inválido.');
-            } catch (error) {
-               validZodTypeError(error, 'price', 'invalid_type');
-            }
-        });
+        //         fail('Esperava-se que a criação do produto falhasse devido ao preço inválido.');
+        //     } catch (error) {
+        //        validZodTypeError(error, 'price', 'invalid_type');
+        //     }
+        // });
     
-        test("Preço negativo", async () => {
-            try {
-                const produto = Product.create("cebola", -1);
-                await createProdutoUseCase.execute(produto)
+        // test("Preço negativo", async () => {
+        //     try {
+        //         const produto = Product.create("cebola", -1);
+        //         await createProdutoUseCase.execute(produto)
 
-                fail('Esperava-se que a criação do produto falhasse devido ao preço inválido.');
-            } catch (error) {
-               validZodTypeError(error, 'price', 'too_small');
-            }
-        });
+        //         fail('Esperava-se que a criação do produto falhasse devido ao preço inválido.');
+        //     } catch (error) {
+        //        validZodTypeError(error, 'price', 'too_small');
+        //     }
+        // });
     })
 });

@@ -1,6 +1,6 @@
 import { IRecipeRepository } from "../../IRecipeRepository";
 import { Recipe } from "../../../entities/Recipe";
-import { Item } from "../../../entities/Item";
+import { Ingredient } from "../../../entities/Item";
 import { Product } from "../../../entities/Product";
 import { prismaClient } from "../../../prisma";
 
@@ -30,7 +30,7 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
             id: recipes.id,
             name: recipes.name,
             ingredients: recipes.ingredients.map(e => {
-                return Item.with({
+                return Ingredient.with({
                     id: e.id,
                     quantity: e.quantity,
                     product: Product.with(e.product)
