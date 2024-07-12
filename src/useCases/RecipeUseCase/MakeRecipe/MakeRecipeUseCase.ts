@@ -15,13 +15,10 @@ export class MakeRecipeUseCase implements IUseCase<MakeRecipeRequestDto, void> {
         const recipe: Recipe = await this.recipeRepository.findById(id)
         if (!recipe) throw new Error("Recipe não foi encontrada")
 
-        // recipe.MakeRecipe()
+        recipe.MakeRecipe()
 
-        // autaliza o estoque
-        // recipe.ingredients.forEach(r => {
-        //     this.
-        //     this.stockRepository.update(r.product)
-        // });
-        // await this.recipeRepository.update(recipe)
+        recipe.ingredients.forEach(r => {
+            this.stockRepository.update(r.product.stock)
+        })
     }
 }

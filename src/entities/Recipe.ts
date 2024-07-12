@@ -4,7 +4,8 @@ import { Id } from "./types/Id";
 export type RecipeProps = {
     id: Id;
     name: string
-    ingredients: Ingredient[]
+
+    ingredients?: Ingredient[]
 };
 
 export class Recipe {
@@ -26,11 +27,14 @@ export class Recipe {
         return this.props.ingredients;
     }
 
-    // public MakeRecipe(): void {    
-    //     //ver se a respon sabilidade de verificar o amount dos itens fica de faot aqui    
-    //     if (this.props.ingredients.some(i => i.product.amount - i.quantity < 0)) {
-    //         throw new Error("Not enough product amount");
-    //     }
-    //     this.props.ingredients.forEach(i => i.product.decreaseAmount(i.quantity))
-    // }
+    public MakeRecipe(): void {    
+        //ver se a respon sabilidade de verificar o amount dos itens fica de faot aqui    
+        
+        
+        if (this.props.ingredients.some(i => i.product.stock.amount - i.quantity < 0)) {
+            throw new Error("Not enough product amount");
+        }
+
+        this.props.ingredients.forEach(i => i.product.stock.decreaseAmount(i.quantity))
+    }
 }

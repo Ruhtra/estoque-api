@@ -4,7 +4,8 @@ import { Id } from "./types/Id";
 export type ItemProps = {
     id: Id;
     quantity: number
-    product: Product
+
+    product?: Product
 };
 
 export class Ingredient {

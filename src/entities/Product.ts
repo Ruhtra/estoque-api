@@ -1,11 +1,17 @@
 import z from "zod";
 import { Id } from "./types/Id";
+import { Ingredient } from "./Item";
+import { Stock } from "./Sotck";
+import { ObjectId } from "mongodb";
 
 export type ProductProps = {
     id: Id;
     name: string;
     // price: number;
     // amount: number;
+
+    ingredients?:    Ingredient[]
+    stock?: Stock
 };
 
 export class Product {
@@ -27,8 +33,9 @@ export class Product {
 
     public static create(name: string) {
         return new Product({
-            id: crypto.randomUUID().toString(),
+            id: new ObjectId().toString(),
             name,
+            stock: Stock.create()
             // price,
             // amount: 0,
         });
@@ -44,6 +51,14 @@ export class Product {
 
     public get name(){
         return this.props.name;
+    }
+
+    public get ingredients() {
+        return this.props.ingredients;
+    }
+
+    public get stock(){
+        return this.props.stock;
     }
 
     // public get price(){

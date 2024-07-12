@@ -1,11 +1,14 @@
+import { ObjectId } from "mongodb"
+import { History, OperationEnum } from "./History"
 import { Product } from "./Product"
 import { Id } from "./types/Id"
 
 export type StockProps = {
     id: Id,
     amount: number
-    product: Product
-    
+
+    product?: Product
+    history?: History[]
 }
 
 export class Stock {
@@ -13,6 +16,13 @@ export class Stock {
 
     public static with(props: StockProps) {
         return new Stock(props);
+    }
+
+    public static create() {
+        return new Stock({
+            id: new ObjectId().toString(),
+            amount: 0,
+        })
     }
 
     public get id() {
@@ -27,15 +37,22 @@ export class Stock {
         return this.props.product;
     }
 
+    public get history(){
+        return this.props.history
+    }
+
+
 
     
-    public increaseAmount(amount: number){
-        // validação de se pode executar essa ção
+    public increaseAmount(amount: number, price: number){
         this.props.amount += amount;
+        this.props.history = []
+        this.props.history.push(History.create(amount, price, OperationEnum.increase))
     }
 
     public decreaseAmount(amount: number){
-        // validação de se pode executar essa ção
         this.props.amount -= amount;
+        this.props.history = []
+        this.props.history.push(History.create(amount, 0, OperationEnum.decrease))
     }
 }

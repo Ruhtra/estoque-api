@@ -3,10 +3,11 @@ import { Recipe } from "../../../entities/Recipe";
 import { Ingredient } from "../../../entities/Item";
 import { Product } from "../../../entities/Product";
 import { prismaClient } from "../../../prisma";
+import { Stock } from "../../../entities/Sotck";
 
 export class RecipeRepositoryPrisma implements IRecipeRepository {
     // private constructor(private readonly prismaClient: PrismaClient) {}
-    
+
     // public static create(prismaClient: PrismaClient) {
     //     return new ProductRepositoryPrisma(prismaClient);
     // }
@@ -19,7 +20,11 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
             include: {
                 ingredients: {
                     include: {
-                        product: true
+                        product: {
+                            include: {
+                                Stock: true
+                            }
+                        }
                     }
                 }
             }
@@ -33,7 +38,14 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
                 return Ingredient.with({
                     id: e.id,
                     quantity: e.quantity,
-                    product: Product.with(e.product)
+                    product: Product.with({
+                        id: e.product.id,
+                        name: e.product.id,
+                        stock: Stock.with({
+                            amount: e.product.Stock.amount,
+                            id: e.product.Stock.id
+                        })
+                    }),
                 })
             })
         })
@@ -55,5 +67,5 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
     //         }
     //     })
     // }
-    
+
 }

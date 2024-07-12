@@ -8,10 +8,12 @@ export class MakeRecipeController {
 
     async handle(request: Request, response: Response) {
         try {
-            const id: string = request.params.id as string; 
+            const id: string = request.query.id as string; 
             if (!id) return response.sendStatus(400)
 
-            this.makeRecipeUseCase.execute({ id })
+            await this.makeRecipeUseCase.execute({ id })
+
+            return response.send("recipe feita com sucesso")
         } catch (error) {
             console.log(error);
             return response.sendStatus(500)
