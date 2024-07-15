@@ -1,17 +1,15 @@
 import z from "zod";
 import { Id } from "./types/Id";
-import { Ingredient } from "./Item";
-import { Stock } from "./Sotck";
+import { Ingredient } from "./Ingredient";
+import { Stock } from "./Stock";
 import { ObjectId } from "mongodb";
 
 export type ProductProps = {
     id: Id;
     name: string;
-    // price: number;
-    // amount: number;
 
-    ingredients?:    Ingredient[]
-    stock?: Stock
+    readonly ingredients?: Ingredient
+    readonly stock?: Stock
 };
 
 export class Product {
@@ -19,7 +17,7 @@ export class Product {
         this.validate(props)
     }
 
-    
+
     private validate(produto: ProductProps) {
         const schema = z.object({
             id: z.string(),
@@ -36,8 +34,6 @@ export class Product {
             id: new ObjectId().toString(),
             name,
             stock: Stock.create()
-            // price,
-            // amount: 0,
         });
     }
 
@@ -49,7 +45,7 @@ export class Product {
         return this.props.id;
     }
 
-    public get name(){
+    public get name() {
         return this.props.name;
     }
 
@@ -57,24 +53,8 @@ export class Product {
         return this.props.ingredients;
     }
 
-    public get stock(){
+    public get stock() {
         return this.props.stock;
     }
-
-    // public get price(){
-    //     return this.props.price;
-    // }
-
-    // public get amount(){
-    //     return this.props.amount;
-    // }
-
-    // public increaseAmount(amount: number){
-    //     this.props.amount += amount;
-    // }
-
-    // public decreaseAmount(amount: number){
-    //     this.props.amount -= amount;
-    // }
 
 }

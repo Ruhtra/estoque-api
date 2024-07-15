@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb"
-import { History, OperationEnum } from "./History"
+import { History, OperationHistoryEnum } from "./History"
 import { Product } from "./Product"
 import { Id } from "./types/Id"
 
@@ -7,8 +7,8 @@ export type StockProps = {
     id: Id,
     amount: number
 
-    product?: Product
-    history?: History[]
+    readonly product?: Product
+    readonly history?: History[] 
 }
 
 export class Stock {
@@ -46,13 +46,17 @@ export class Stock {
     
     public increaseAmount(amount: number, price: number){
         this.props.amount += amount;
-        this.props.history = []
-        this.props.history.push(History.create(amount, price, OperationEnum.increase))
+
+        const history = History.create(amount, price, OperationHistoryEnum.increase);
+        this.props.history.push(history);
     }
 
     public decreaseAmount(amount: number){
+        if (this.props.amount < amount) throw new Error("Value is higher than current stock")
+
         this.props.amount -= amount;
-        this.props.history = []
-        this.props.history.push(History.create(amount, 0, OperationEnum.decrease))
+        
+        const history = History.create(amount, 0, OperationHistoryEnum.decrease);
+        this.props.history.push(history);
     }
 }

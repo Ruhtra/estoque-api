@@ -1,5 +1,5 @@
 import { RecipeRepositoryPrisma } from "../../../respositories/implementations/Prisma/RecipeRepositoryPrisma"
-import { StockRepositoryPrisma } from "../../../respositories/implementations/Prisma/SotckRepositoryPrisma"
+import { StockRepositoryPrisma } from "../../../respositories/implementations/Prisma/StockRepositoryPrisma"
 import { MakeRecipeController } from "./MakeRecipeController"
 import { MakeRecipeUseCase } from "./MakeRecipeUseCase"
 

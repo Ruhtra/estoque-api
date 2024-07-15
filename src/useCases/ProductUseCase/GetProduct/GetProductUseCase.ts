@@ -8,7 +8,7 @@ export class GetProductUseCase implements IUseCase<GetProductRequestDto, GetProd
     ) { }
 
     async execute({ id }: GetProductRequestDto): Promise<GetProductResponseDto> {
-        const product = await this.productRepository.get(id)
+        const product = await this.productRepository.findById(id)
 
         return {
             id: product.id,

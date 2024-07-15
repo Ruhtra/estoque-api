@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,29 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator erd {
+  provider                  = "prisma-erd-generator"
+  theme                     = "dark"
+  engineType = "binary"
+  includeRelationFromFields = true
+}
+
 enum OperationHistory {
   increase
   decrease
 }
 
-model history {
+model History {
   id        String           @id @default(auto()) @map("_id") @db.ObjectId
   amount    Float
   price     Float
   operation OperationHistory
 
-  stock   Stock  @relation(fields: [stockId], references: [id])
+  Stock   Stock  @relation(fields: [stockId], references: [id])
   stockId String @db.ObjectId
 
-  @@map("historys")
+  @@map("histories")
 }
 
 model Stock {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   amount Float
 
-  history history[]
-  Product Product[]
+  histories History[]
+
+  Product   Product @relation(fields: [productId], references: [id])
+  productId String  @unique @db.ObjectId
 
   @@map("stocks")
 }
@@ -43,12 +46,10 @@ model Stock {
 model Product {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  // price  Float
-  // amount Int
 
-  Item    Ingredient[]
-  Stock   Stock        @relation(fields: [stockId], references: [id])
-  stockId String       @db.ObjectId
+  //estoque deve ter relacinoamente de 1:n
+  stock      Stock?
+  ingredient Ingredient?
 
   @@map("products")
 }
@@ -58,10 +59,10 @@ model Ingredient {
   quantity Float
 
   product   Product @relation(fields: [productId], references: [id])
-  productId String  @db.ObjectId
+  productId String  @unique @db.ObjectId
 
-  Recipe   Recipe? @relation(fields: [recipeId], references: [id])
-  recipeId String? @db.ObjectId
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String @unique @db.ObjectId
 
   @@map("ingredients")
 }
@@ -70,7 +71,7 @@ model Recipe {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
 
-  ingredients Ingredient[]
+  ingredient Ingredient[] 
 
   @@map("recipes")
 }

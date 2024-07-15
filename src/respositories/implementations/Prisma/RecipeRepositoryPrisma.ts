@@ -1,9 +1,9 @@
 import { IRecipeRepository } from "../../IRecipeRepository";
 import { Recipe } from "../../../entities/Recipe";
-import { Ingredient } from "../../../entities/Item";
+import { Ingredient } from "../../../entities/Ingredient";
 import { Product } from "../../../entities/Product";
 import { prismaClient } from "../../../prisma";
-import { Stock } from "../../../entities/Sotck";
+import { Stock } from "../../../entities/Stock";
 
 export class RecipeRepositoryPrisma implements IRecipeRepository {
     // private constructor(private readonly prismaClient: PrismaClient) {}
@@ -18,11 +18,11 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
                 id: id
             },
             include: {
-                ingredients: {
+                ingredient: {
                     include: {
                         product: {
                             include: {
-                                Stock: true
+                                stock: true
                             }
                         }
                     }
@@ -34,7 +34,7 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
         return Recipe.with({
             id: recipes.id,
             name: recipes.name,
-            ingredients: recipes.ingredients.map(e => {
+            ingredients: recipes.ingredient.map(e => {
                 return Ingredient.with({
                     id: e.id,
                     quantity: e.quantity,
@@ -42,8 +42,8 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
                         id: e.product.id,
                         name: e.product.id,
                         stock: Stock.with({
-                            amount: e.product.Stock.amount,
-                            id: e.product.Stock.id
+                            amount: e.product.stock.amount,
+                            id: e.product.stock.id
                         })
                     }),
                 })

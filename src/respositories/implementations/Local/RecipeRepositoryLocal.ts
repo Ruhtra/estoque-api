@@ -1,4 +1,4 @@
-import { Ingredient } from "../../../entities/Item";
+import { Ingredient } from "../../../entities/Ingredient";
 import { Product } from "../../../entities/Product";
 import { Recipe } from "../../../entities/Recipe";
 import { IRecipeRepository } from "../../IRecipeRepository";

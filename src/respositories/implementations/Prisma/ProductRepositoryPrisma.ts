@@ -10,10 +10,10 @@ export class ProductRepositoryPrisma implements IProductRepository {
             data: {
                 id: product.id.toString(),
                 name: product.name,
-                Stock: {
+                stock: {
                     create: {
                         id: product.stock.id.toString(),
-                        amount: 0
+                        amount: product.stock.amount
                     }
                 }
             },
@@ -30,7 +30,7 @@ export class ProductRepositoryPrisma implements IProductRepository {
         })
     }
     
-    async get(id: Id): Promise<Product> {
+    async findById(id: Id): Promise<Product> {
         const product = await prismaClient.product.findFirst({
             where: {
                 id: id.toString()

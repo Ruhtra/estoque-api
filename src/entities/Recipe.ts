@@ -1,11 +1,11 @@
-import { Ingredient } from "./Item";
+import { Ingredient } from "./Ingredient";
 import { Id } from "./types/Id";
 
 export type RecipeProps = {
     id: Id;
     name: string
 
-    ingredients?: Ingredient[]
+    readonly ingredients?: Ingredient[]
 };
 
 export class Recipe {

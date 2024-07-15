@@ -18,7 +18,7 @@ export class ProductRepositoryLocal implements IProductRepository {
         const idProduct = this.db.findIndex(e => e.id == product.id)
         this.db[idProduct] = product
     }
-    async get(id: string): Promise<Product> {
+    async findById(id: string): Promise<Product> {
         return this.db.find(e => e.id == id)
     }
     async getAll(): Promise<Product[]> {

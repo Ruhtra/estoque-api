@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb"
-import { Stock } from "./Sotck"
+import { Stock } from "./Stock"
 import { Id } from "./types/Id"
 
 
-export enum OperationEnum {
+export enum OperationHistoryEnum {
     increase = 'increase',
     decrease = 'decrease'
 }
@@ -12,9 +12,9 @@ export type HistoryProps = {
     id: Id
     amount: number
     price: number
-    operation: OperationEnum
+    operation: OperationHistoryEnum
 
-    stock?: Stock
+    readonly stock?: Stock
 }
 
 export class History {
@@ -27,7 +27,7 @@ export class History {
     public static create(
         amount: number,
         price: number,
-        operation: OperationEnum,
+        operation: OperationHistoryEnum,
     ) {
         return new History({
             id: new ObjectId().toString(),

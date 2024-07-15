@@ -1,7 +1,7 @@
-import { Stock } from "../entities/Sotck";
+import { Stock } from "../entities/Stock";
 import { Id } from "../entities/types/Id";
 
 export interface IStockRepository {
-    get: (id: Id) => Promise<Stock>
+    findById: (id: Id) => Promise<Stock>
     update: (stock: Stock) => Promise<void>
 }

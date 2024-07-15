@@ -13,11 +13,12 @@ export class MakeRecipeUseCase implements IUseCase<MakeRecipeRequestDto, void> {
 
     async execute({ id }: MakeRecipeRequestDto): Promise<void> {
         const recipe: Recipe = await this.recipeRepository.findById(id)
-        if (!recipe) throw new Error("Recipe não foi encontrada")
+        if (!recipe) throw new Error("Recipe not found")
 
         recipe.MakeRecipe()
 
-        recipe.ingredients.forEach(r => {
+        //add await in promise all
+        recipe.ingredients.map(r => {
             this.stockRepository.update(r.product.stock)
         })
     }

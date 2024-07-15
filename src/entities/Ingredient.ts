@@ -1,3 +1,4 @@
+import { Recipe } from "@prisma/client";
 import { Product } from "./Product";
 import { Id } from "./types/Id";
 
@@ -5,7 +6,8 @@ export type ItemProps = {
     id: Id;
     quantity: number
 
-    product?: Product
+    readonly product?: Product
+    readonly recipe?: Recipe
 };
 
 export class Ingredient {
