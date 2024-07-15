@@ -14,10 +14,12 @@ export class IncreaseStockUseCase implements IUseCase<IncreaseStockRequestDto, v
         const stock: Stock = await this.stockRepository.findById(id)
         if (!stock) throw new Error("Stock not found")
 
+        //validar apra possivel erro na criação do historico, em que o o produto é adiconado mas o hsitorico não
+
         stock.increaseAmount(amount, price)
         await this.stockRepository.update(stock);
 
-        const history = History.create(amount, price, OperationHistoryEnum.increase)
+        const history = History.create(amount, price, OperationHistoryEnum.increase, stock)
         await this.historyRepository.save(history)
     }
 }

@@ -28,12 +28,14 @@ export class History {
         amount: number,
         price: number,
         operation: OperationHistoryEnum,
+        stock: Stock
     ) {
         return new History({
             id: new ObjectId().toString(),
             amount,
             price,
-            operation
+            operation,
+            stock
         })
     }
 

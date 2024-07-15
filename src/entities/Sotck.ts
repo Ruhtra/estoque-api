@@ -7,25 +7,21 @@ export type StockProps = {
     id: Id,
     amount: number
 
-    readonly product?: Product
-    readonly history?: History[] 
+    product?: Product
+    history?: History[]
 }
 
 export class Stock {
     private constructor(private props: StockProps) {}
 
     public static with(props: StockProps) {
-        return new Stock({
-            ...props,
-            history: props.history || []
-        });
+        return new Stock(props);
     }
 
     public static create() {
         return new Stock({
             id: new ObjectId().toString(),
             amount: 0,
-            history : []
         })
     }
 
@@ -50,17 +46,13 @@ export class Stock {
     
     public increaseAmount(amount: number, price: number){
         this.props.amount += amount;
-
-        // const history = History.create(amount, price, OperationHistoryEnum.increase);
-        // this.props.history.push(history);
+        // this.props.history = []
+        this.props.history.push(History.create(amount, price, OperationHistoryEnum.increase))
     }
 
     public decreaseAmount(amount: number){
-        if (this.props.amount < amount) throw new Error("Value is higher than current stock")
-
         this.props.amount -= amount;
-        
-        // const history = History.create(amount, 0, OperationHistoryEnum.decrease);
-        // this.props.history.push(history);
+        this.props.history = []
+        this.props.history.push(History.create(amount, 0, OperationHistoryEnum.decrease))
     }
 }
