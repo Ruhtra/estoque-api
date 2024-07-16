@@ -3,5 +3,6 @@ import { Id } from "../entities/types/Id";
 
 export interface IStockRepository {
     findById: (id: Id) => Promise<Stock>
+    findByIdProduct: (id: Id) => Promise<Stock>
     update: (stock: Stock) => Promise<void>
 }

@@ -11,6 +11,9 @@ export class IncreaseStockController {
         try {
             const bodyRequest: IncreaseStockRequestDto = request.body as IncreaseStockRequestDto
 
+            console.log(bodyRequest);
+            
+
             await this.increaseStockUseCase.execute(bodyRequest)
             return response.send(200)
         } catch (error) {

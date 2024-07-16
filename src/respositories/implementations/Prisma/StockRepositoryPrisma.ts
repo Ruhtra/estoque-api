@@ -28,5 +28,17 @@ export class StockRepositoryPrisma implements IStockRepository {
             amount: stock.amount,
         })
     }
+    async findByIdProduct(id: Id): Promise<Stock> {
+        const stock = await prismaClient.stock.findFirst({
+            where: {
+                productId: id.toString()
+            }
+        })
+
+        return Stock.with({
+            id: stock.id,
+            amount: stock.amount,
+        })
+    }
 
 }
