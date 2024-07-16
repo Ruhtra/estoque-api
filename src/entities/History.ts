@@ -14,7 +14,7 @@ export type HistoryProps = {
     price: number
     operation: OperationHistoryEnum
 
-    readonly stock?: Stock
+    readonly stock: Stock
 }
 
 export class History {

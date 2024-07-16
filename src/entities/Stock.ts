@@ -15,10 +15,7 @@ export class Stock {
     private constructor(private props: StockProps) {}
 
     public static with(props: StockProps) {
-        return new Stock({
-            ...props,
-            history: props.history || []
-        });
+        return new Stock(props);
     }
 
     public static create() {

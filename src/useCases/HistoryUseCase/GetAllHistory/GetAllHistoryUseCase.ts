@@ -1,17 +1,17 @@
 import { OperationHistoryEnum } from "../../../entities/History";
 import { IHistoryRepository } from "../../../respositories/IHistoryRepository";
 import { IUseCase } from "../../IUseCase";
-import { GetAllHistoryResponseDto } from "./GetAllHistoryDto";
+import { GetAllHistoryRequestDto, GetAllHistoryResponseDto } from "./GetAllHistoryDto";
 
-export class GetAllHistoryUseCase implements IUseCase<void, GetAllHistoryResponseDto[]> {
+export class GetAllHistoryUseCase implements IUseCase<GetAllHistoryRequestDto, GetAllHistoryResponseDto[]> {
     constructor(
         private historyRepository: IHistoryRepository
     ) {}
 
-    async execute(): Promise<GetAllHistoryResponseDto[]> {
+    async execute({ operation }: GetAllHistoryRequestDto): Promise<GetAllHistoryResponseDto[]> {
+        
         const histories = await this.historyRepository.getAll()
-
-        return histories.map(h => {
+        var historiesOutput = histories.map(h => {
             return  {
                 id: h.id.toString(),
                 amount: h.amount,
@@ -22,5 +22,13 @@ export class GetAllHistoryUseCase implements IUseCase<void, GetAllHistoryRespons
                 }
             }
         })
+
+        if (operation != null) {
+            historiesOutput = historiesOutput.filter(h => {
+                return h.operation == operation
+            })
+        }
+
+        return historiesOutput
     }
 }

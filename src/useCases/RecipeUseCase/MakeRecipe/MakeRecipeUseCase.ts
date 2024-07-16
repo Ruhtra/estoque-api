@@ -1,5 +1,4 @@
 import { Recipe } from "../../../entities/Recipe";
-import { IProductRepository } from "../../../respositories/IProductRepository";
 import { IRecipeRepository } from "../../../respositories/IRecipeRepository";
 import { IStockRepository } from "../../../respositories/IStockRepository";
 import { IUseCase } from "../../IUseCase";
@@ -18,8 +17,8 @@ export class MakeRecipeUseCase implements IUseCase<MakeRecipeRequestDto, void> {
         recipe.MakeRecipe()
 
         //add await in promise all
-        recipe.ingredients.map(r => {
-            this.stockRepository.update(r.product.stock)
+        recipe.ingredients.forEach(async r => {
+            await this.stockRepository.update(r.product.stock)
         })
     }
 }
