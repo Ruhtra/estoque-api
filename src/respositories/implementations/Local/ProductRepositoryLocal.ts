@@ -1,4 +1,5 @@
 import { Product } from "../../../entities/Product";
+import { Id } from "../../../entities/types/Id";
 import { IProductRepository } from "../../IProductRepository";
 
 export class ProductRepositoryLocal implements IProductRepository {
@@ -24,4 +25,5 @@ export class ProductRepositoryLocal implements IProductRepository {
     async getAll(): Promise<Product[]> {
         return this.db;
     }
+    delete: (id: Id) => Promise<void>;
 }

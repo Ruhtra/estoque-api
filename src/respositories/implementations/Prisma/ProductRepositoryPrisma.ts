@@ -19,7 +19,7 @@ export class ProductRepositoryPrisma implements IProductRepository {
             },
         });
     }
-    public async update (product: Product): Promise<void> {
+    public async update(product: Product): Promise<void> {
         await prismaClient.product.update({
             where: {
                 id: product.id.toString()
@@ -29,18 +29,32 @@ export class ProductRepositoryPrisma implements IProductRepository {
             }
         })
     }
-    
+
     async findById(id: Id): Promise<Product> {
         const product = await prismaClient.product.findFirst({
             where: {
                 id: id.toString()
             }
         })
-        
+
         return Product.with(product);
     }
     public async getAll(): Promise<Product[]> {
-        const recipes = await prismaClient.product.findMany()
-        return recipes.map(e => Product.with(e))
+        const products = await prismaClient.product.findMany()
+        return products.map(e => Product.with(e))
+    }
+
+    async delete(id: Id): Promise<void> {
+        await prismaClient.product.delete({
+            where: {
+                id: id.toString(),
+            },
+            // include: {
+            //     stock: {
+                    
+            //     }
+            // }
+        })
+
     }
 }
