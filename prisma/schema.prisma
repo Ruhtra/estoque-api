@@ -25,7 +25,8 @@ model History {
   price     Float
   operation OperationHistory
 
-  Stock   Stock  @relation(fields: [stockId], references: [id])
+  //não pode ser feito em cascade, ajetiar futuramente
+  Stock   Stock  @relation(fields: [stockId], references: [id], onDelete: Cascade)
   stockId String @db.ObjectId
 
   @@map("histories")
