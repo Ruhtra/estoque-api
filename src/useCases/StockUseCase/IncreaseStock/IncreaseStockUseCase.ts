@@ -12,7 +12,7 @@ export class IncreaseStockUseCase implements IUseCase<IncreaseStockRequestDto, v
     ) {}
     async execute({ id, amount, price }: IncreaseStockRequestDto): Promise<void> {
         // const stock: Stock = await this.stockRepository.findById(id)
-        const stock: Stock = await this.stockRepository.findByIdProduct(id)
+        const stock: Stock = await this.stockRepository.findById(id)
         if (!stock) throw new Error("Stock not found")
 
         //validar apra possivel erro na criação do historico, em que o o produto é adiconado mas o hsitorico não

@@ -6,5 +6,9 @@ export interface GetProductRequestDto {
 
 export interface GetProductResponseDto {
     id: Id
-    name: string
+    name: string,
+    stock: {
+        id: Id,
+        amount: number
+    }
 }
