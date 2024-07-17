@@ -17,6 +17,7 @@ export class GetAllHistoryUseCase implements IUseCase<GetAllHistoryRequestDto, G
                 amount: h.amount,
                 price: h.price,
                 operation: OperationHistoryEnum[h.operation],
+                createdAt: h.createdAt,
                 product: {
                     name: h.stock.product.name
                 }

@@ -1,14 +1,16 @@
 import { OperationHistoryEnum } from "../../../entities/History"
 
-export class GetAllHistoryRequestDto {
+export type GetAllHistoryRequestDto = {
     operation?: OperationHistoryEnum
 }
 
-export class GetAllHistoryResponseDto {
+
+export type GetAllHistoryResponseDto = {
     id: string
     amount: number
     price: number
-    operation: OperationHistoryEnum
+    operation: OperationHistoryEnum,
+    createdAt: Date,
     product: {
         name: string
     }

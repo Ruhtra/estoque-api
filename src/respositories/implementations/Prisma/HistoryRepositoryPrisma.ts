@@ -12,6 +12,7 @@ export class HistoryRepositoryPrisma implements IHistoryRepository {
                 price: history.price,
                 id: history.id.toString(),
                 operation: history.operation,
+                createdAt: history.createdAt,
                 Stock: {
                     connect: {
                         id: history.stock.id.toString()
@@ -28,6 +29,9 @@ export class HistoryRepositoryPrisma implements IHistoryRepository {
                         Product: true
                     }
                 }
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         })
 
@@ -37,6 +41,7 @@ export class HistoryRepositoryPrisma implements IHistoryRepository {
                 amount: e.amount,
                 operation: OperationHistoryEnum[e.operation],
                 price: e.price,
+                createdAt: e.createdAt,
                 stock: Stock.with({
                     id: e.Stock.id,
                     amount: e.Stock.amount,

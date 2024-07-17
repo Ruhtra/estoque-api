@@ -24,6 +24,7 @@ model History {
   amount    Float
   price     Float
   operation OperationHistory
+  createdAt DateTime
 
   //não pode ser feito em cascade, ajetiar futuramente
   Stock   Stock  @relation(fields: [stockId], references: [id], onDelete: Cascade)

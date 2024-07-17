@@ -13,6 +13,7 @@ export type HistoryProps = {
     amount: number
     price: number
     operation: OperationHistoryEnum
+    readonly createdAt: Date
 
     readonly stock: Stock
 }
@@ -35,7 +36,8 @@ export class History {
             amount,
             price,
             operation,
-            stock
+            stock,
+            createdAt: new Date()
         })
     }
 
@@ -53,6 +55,9 @@ export class History {
     }
     public get stock() {
         return this.props.stock
+    }
+    public get createdAt() {
+        return this.props.createdAt
     }
 
 }
