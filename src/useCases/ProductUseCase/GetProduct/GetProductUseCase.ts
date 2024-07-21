@@ -16,6 +16,10 @@ export class GetProductUseCase implements IUseCase<GetProductRequestDto, GetProd
             stock: {
                 id: product.stock.id,
                 amount: product.stock.amount
+            },
+            measureType: {
+                id: product.measureType.id,
+                name: product.measureType.name
             }
         }
     }

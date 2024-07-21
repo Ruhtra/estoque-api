@@ -3,6 +3,7 @@ import { Id } from "./types/Id";
 import { Ingredient } from "./Ingredient";
 import { Stock } from "./Stock";
 import { ObjectId } from "mongodb";
+import { MeasureType } from "./MesureTypes";
 
 export type ProductProps = {
     id: Id;
@@ -10,6 +11,7 @@ export type ProductProps = {
 
     readonly ingredients?: Ingredient
     readonly stock?: Stock
+    readonly measureType: MeasureType
 };
 
 export class Product {
@@ -29,11 +31,13 @@ export class Product {
         schema.parse(produto);
     }
 
-    public static create(name: string) {
+    public static create(name: string, measureType) {
         return new Product({
             id: new ObjectId().toString(),
             name,
-            stock: Stock.create()
+            
+            stock: Stock.create(),
+            measureType: measureType
         });
     }
 
@@ -55,6 +59,9 @@ export class Product {
 
     public get stock() {
         return this.props.stock;
+    }
+    public get measureType() {
+        return this.props.measureType;
     }
 
 }

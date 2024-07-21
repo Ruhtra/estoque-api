@@ -7,4 +7,8 @@ export interface GetAllProductResponseDto {
         id: Id,
         amount: number
     }
+    measureType: {
+        id: Id,
+        name: string
+    }
 }

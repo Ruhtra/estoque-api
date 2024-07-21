@@ -10,7 +10,7 @@ datasource db {
 generator erd {
   provider                  = "prisma-erd-generator"
   theme                     = "dark"
-  engineType = "binary"
+  engineType                = "binary"
   includeRelationFromFields = true
 }
 
@@ -46,12 +46,14 @@ model Stock {
 }
 
 model Product {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  measureType MesureType @relation(fields: [mesureTypeId], references: [id])
 
   //estoque deve ter relacinoamente de 1:n
-  stock      Stock?
-  ingredient Ingredient?
+  stock        Stock?
+  ingredient   Ingredient?
+  mesureTypeId String      @db.ObjectId
 
   @@map("products")
 }
@@ -73,7 +75,15 @@ model Recipe {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
 
-  ingredient Ingredient[] 
+  ingredient Ingredient[]
 
   @@map("recipes")
+}
+
+model MesureType {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String    @unique
+  Product Product[]
+
+  @@map("mesure_types")
 }

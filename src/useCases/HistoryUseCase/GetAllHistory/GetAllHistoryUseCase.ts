@@ -19,7 +19,10 @@ export class GetAllHistoryUseCase implements IUseCase<GetAllHistoryRequestDto, G
                 operation: OperationHistoryEnum[h.operation],
                 createdAt: h.createdAt,
                 product: {
-                    name: h.stock.product.name
+                    name: h.stock.product.name,
+                    measureType: {
+                        name: h.stock.product.measureType.name
+                    }
                 }
             }
         })

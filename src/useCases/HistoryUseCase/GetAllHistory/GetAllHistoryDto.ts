@@ -12,7 +12,10 @@ export type GetAllHistoryResponseDto = {
     operation: OperationHistoryEnum,
     createdAt: Date,
     product: {
-        name: string
+        name: string,
+        measureType: {
+            name: string
+        }
     }
 
 }

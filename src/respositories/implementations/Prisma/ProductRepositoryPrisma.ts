@@ -1,4 +1,5 @@
 
+import { MeasureType } from "../../../entities/MesureTypes";
 import { Product } from "../../../entities/Product";
 import { Stock } from "../../../entities/Stock";
 import { Id } from "../../../entities/types/Id";
@@ -15,6 +16,11 @@ export class ProductRepositoryPrisma implements IProductRepository {
                     create: {
                         id: product.stock.id.toString(),
                         amount: product.stock.amount
+                    }
+                },
+                measureType: {
+                    connect: {
+                        id: product.measureType.id.toString()
                     }
                 }
             },
@@ -37,7 +43,8 @@ export class ProductRepositoryPrisma implements IProductRepository {
                 id: id.toString()
             },
             include: {
-                stock: true
+                stock: true,
+                measureType:  true
             }
         })
 
@@ -47,13 +54,18 @@ export class ProductRepositoryPrisma implements IProductRepository {
             stock: Stock.with({
                 id: product.stock.id.toString(),
                 amount: product.stock.amount
+            }),
+            measureType: MeasureType.with({
+                id: product.measureType.id,
+                name: product.measureType.name
             })
         });
     }
     public async getAll(): Promise<Product[]> {
         const products = await prismaClient.product.findMany({
             include: {
-                stock: true
+                stock: true,
+                measureType: true
             }
         })
 
@@ -63,6 +75,10 @@ export class ProductRepositoryPrisma implements IProductRepository {
             stock: Stock.with({
                 id: e.stock.id.toString(),
                 amount: e.stock.amount
+            }),
+            measureType: MeasureType.with({
+                id: e.measureType.id,
+                name: e.measureType.name
             })
         }))
     }
@@ -72,11 +88,6 @@ export class ProductRepositoryPrisma implements IProductRepository {
             where: {
                 id: id.toString(),
             },
-            // include: {
-            //     stock: {
-
-            //     }
-            // }
         })
 
     }

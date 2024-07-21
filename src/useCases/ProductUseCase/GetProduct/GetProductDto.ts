@@ -10,5 +10,9 @@ export interface GetProductResponseDto {
     stock: {
         id: Id,
         amount: number
+    },
+    measureType: {
+        id: Id,
+        name: string
     }
 }

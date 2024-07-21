@@ -17,6 +17,10 @@ export class GetAllProductUseCase implements IUseCase<void, GetAllProductRespons
                 stock: {
                     id: p.stock.id,
                     amount: p.stock.amount
+                },
+                measureType: {
+                    id: p.measureType.id,
+                    name: p.measureType.name
                 }
             }
         })

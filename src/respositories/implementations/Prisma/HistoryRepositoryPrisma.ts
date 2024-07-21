@@ -1,4 +1,5 @@
 import { History, OperationHistoryEnum } from "../../../entities/History";
+import { MeasureType } from "../../../entities/MesureTypes";
 import { Product } from "../../../entities/Product";
 import { Stock } from "../../../entities/Stock";
 import { prismaClient } from "../../../prisma";
@@ -26,7 +27,11 @@ export class HistoryRepositoryPrisma implements IHistoryRepository {
             include: {
                 Stock: {
                     include: {
-                        Product: true
+                        Product: {
+                            include: {
+                                measureType: true
+                            }
+                        }
                     }
                 }
             },
@@ -47,7 +52,11 @@ export class HistoryRepositoryPrisma implements IHistoryRepository {
                     amount: e.Stock.amount,
                     product: Product.with({
                         id: e.Stock.Product.id,
-                        name: e.Stock.Product.name
+                        name: e.Stock.Product.name,
+                        measureType: MeasureType.with({
+                            id: e.Stock.Product.measureType.id,
+                            name: e.Stock.Product.measureType.name
+                        })
                     })
                 })
             })
