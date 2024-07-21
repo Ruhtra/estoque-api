@@ -4,6 +4,7 @@ import { Ingredient } from "../../../entities/Ingredient";
 import { Product } from "../../../entities/Product";
 import { prismaClient } from "../../../prisma";
 import { Stock } from "../../../entities/Stock";
+import { MeasureType } from "../../../entities/MesureTypes";
 
 export class RecipeRepositoryPrisma implements IRecipeRepository {
     // private constructor(private readonly prismaClient: PrismaClient) {}
@@ -22,7 +23,8 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
                     include: {
                         product: {
                             include: {
-                                stock: true
+                                stock: true,
+                                measureType: true
                             }
                         }
                     }
@@ -41,6 +43,10 @@ export class RecipeRepositoryPrisma implements IRecipeRepository {
                     product: Product.with({
                         id: e.product.id,
                         name: e.product.id,
+                        measureType: MeasureType.with({
+                            id: e.product.measureType.id,
+                            name: e.product.measureType.name
+                        }),
                         stock: Stock.with({
                             amount: e.product.stock.amount,
                             id: e.product.stock.id

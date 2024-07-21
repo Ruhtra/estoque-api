@@ -34,5 +34,4 @@ export class MeasureType {
     public get product() {
         return this.props.product;
     }
-
 }

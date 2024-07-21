@@ -21,14 +21,14 @@ export class Product {
 
 
     private validate(produto: ProductProps) {
-        const schema = z.object({
-            id: z.string(),
-            name: z.string().min(1).max(50),
-            // amount: z.number().nonnegative(),
-            // price: z.number().positive()
-        });
+        // const schema = z.object({
+        //     id: z.string(),
+        //     name: z.string().min(1).max(50),
+        //     // amount: z.number().nonnegative(),
+        //     // price: z.number().positive()
+        // });
 
-        schema.parse(produto);
+        // schema.parse(produto);
     }
 
     public static create(name: string, measureType) {

@@ -15,4 +15,14 @@ export class MeasureTypeRepositoryPrisma implements IMeasureTypeRepository {
             name: measureType.name,
         })
     }
+    async getAll(): Promise<MeasureType[]> {
+        const measureTypes = await prismaClient.mesureType.findMany({})
+
+        return measureTypes.map(mt => {
+            return MeasureType.with({
+                id: mt.id,
+                name: mt.name
+            })
+        })
+    }
 }
