@@ -10,14 +10,14 @@ export class DecreaseStockUseCase implements IUseCase<DecreaseStockRequestDto, v
         private historyRepository: IHistoryRepository
     ) {}
 
-    async execute({ id, amount, price }: DecreaseStockRequestDto): Promise<void> {
+    async execute({ id, amount }: DecreaseStockRequestDto): Promise<void> {
         const stock = await this.stockRepository.findById(id)
         if (!stock) throw new Error("Stock not found")
 
         stock.decreaseAmount(amount)
         this.stockRepository.update(stock)
 
-        const history = History.create(amount, price, OperationHistoryEnum.decrease, stock)
+        const history = History.create(amount, 0, OperationHistoryEnum.decrease, stock)
         this.historyRepository.save(history)
     }
 }

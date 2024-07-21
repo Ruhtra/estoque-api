@@ -6,6 +6,7 @@ import { makeRecipeController } from "./useCases/RecipeUseCase/MakeRecipe";
 import { increaseStockController } from "./useCases/StockUseCase/IncreaseStock";
 import { getAllHistoryController } from "./useCases/HistoryUseCase/GetAllHistory";
 import { deleteProductController } from "./useCases/ProductUseCase/DeleteProduct";
+import { decreaseStockController } from "./useCases/StockUseCase/DecreaseStock";
 
 const router = Router()
 
@@ -19,6 +20,7 @@ router.delete("/product/delete", (req, res) => deleteProductController.handle(re
 router.post("/recipe/make", (req, res) => makeRecipeController.handle(req, res))
 
 router.post("/stock/increase", (req, res) => increaseStockController.handle(req, res))
+router.post("/stock/decrease", (req, res) => decreaseStockController.handle(req, res))
 
 router.get("/history/all", (req, res) => getAllHistoryController.handle(req, res))
 
