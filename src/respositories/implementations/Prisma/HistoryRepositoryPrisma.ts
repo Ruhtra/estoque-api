@@ -10,7 +10,7 @@ export class HistoryRepositoryPrisma implements IHistoryRepository {
         await prismaClient.history.create({
             data: {
                 amount: history.amount,
-                price: history.price,
+                // price: history.price,
                 id: history.id.toString(),
                 operation: history.operation,
                 createdAt: history.createdAt,
@@ -45,7 +45,7 @@ export class HistoryRepositoryPrisma implements IHistoryRepository {
                 id: e.id,
                 amount: e.amount,
                 operation: OperationHistoryEnum[e.operation],
-                price: e.price,
+                // price: e.price,
                 createdAt: e.createdAt,
                 stock: Stock.with({
                     id: e.Stock.id,

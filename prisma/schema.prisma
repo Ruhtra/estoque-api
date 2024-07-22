@@ -22,7 +22,7 @@ enum OperationHistory {
 model History {
   id        String           @id @default(auto()) @map("_id") @db.ObjectId
   amount    Float
-  price     Float
+  // price     Float
   operation OperationHistory
   createdAt DateTime
 

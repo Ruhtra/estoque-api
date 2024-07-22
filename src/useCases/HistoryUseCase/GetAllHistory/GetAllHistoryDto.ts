@@ -8,7 +8,7 @@ export type GetAllHistoryRequestDto = {
 export type GetAllHistoryResponseDto = {
     id: string
     amount: number
-    price: number
+    // price: number
     operation: OperationHistoryEnum,
     createdAt: Date,
     product: {

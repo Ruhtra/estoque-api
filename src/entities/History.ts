@@ -11,7 +11,7 @@ export enum OperationHistoryEnum {
 export type HistoryProps = {
     id: Id
     amount: number
-    price: number
+    // price: number
     operation: OperationHistoryEnum
     readonly createdAt: Date
 
@@ -27,14 +27,14 @@ export class History {
 
     public static create(
         amount: number,
-        price: number,
+        // price: number,
         operation: OperationHistoryEnum,
         stock: Stock
     ) {
         return new History({
             id: new ObjectId().toString(),
             amount,
-            price,
+            // price,
             operation,
             stock,
             createdAt: new Date()
@@ -47,9 +47,9 @@ export class History {
     public get amount() {
         return this.props.amount
     }
-    public get price() {
-        return this.props.price
-    }
+    // public get price() {
+    //     return this.props.price
+    // }
     public get operation() {
         return this.props.operation
     }

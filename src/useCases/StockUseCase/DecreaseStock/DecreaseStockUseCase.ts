@@ -17,7 +17,7 @@ export class DecreaseStockUseCase implements IUseCase<DecreaseStockRequestDto, v
         stock.decreaseAmount(amount)
         this.stockRepository.update(stock)
 
-        const history = History.create(amount, 0, OperationHistoryEnum.decrease, stock)
+        const history = History.create(amount, OperationHistoryEnum.decrease, stock)
         this.historyRepository.save(history)
     }
 }

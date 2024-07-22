@@ -20,7 +20,7 @@ export class IncreaseStockUseCase implements IUseCase<IncreaseStockRequestDto, v
         stock.increaseAmount(amount, price)
         await this.stockRepository.update(stock);
 
-        const history = History.create(amount, price, OperationHistoryEnum.increase, stock)
+        const history = History.create(amount, OperationHistoryEnum.increase, stock)
         await this.historyRepository.save(history)
     }
 }
